@@ -28,12 +28,8 @@ h1 em { color: var(--sage); font-style: italic; }
 .floating-whatsapp .whatsapp-icon { width: 30px; height: 30px; }
 .floating-whatsapp:hover { background: #1fbd5c; transform: translateY(-3px) scale(1.04); box-shadow: 0 11px 26px rgba(24, 55, 37, .3), 0 0 0 7px rgba(37, 211, 102, .16); }
 @media (max-width: 700px) { .floating-whatsapp { right: 15px; bottom: 15px; width: 54px; height: 54px; } }
-.hero-portrait { position: relative; min-height: 430px; overflow: hidden; background: radial-gradient(120% 120% at 25% 15%, #dadfcf 0%, #c7cdba 55%, #b7bfa8 100%); box-shadow: 0 40px 70px -35px rgba(31, 36, 33, .55); }
-.portrait-shape, .portrait-head, .portrait-shadow { position: absolute; }
-.portrait-back { right: -12%; bottom: -24%; width: 83%; height: 105%; border-radius: 50% 50% 0 0; background: linear-gradient(160deg, #94a18d, #7c8b76); transform: rotate(-9deg); }
-.portrait-body { left: 9%; bottom: -15%; width: 70%; height: 63%; border-radius: 47% 47% 0 0; background: linear-gradient(165deg, #47594e, #364439); box-shadow: 0 -10px 30px rgba(0, 0, 0, .18); }
-.portrait-head { left: 38%; top: 17%; width: 27%; aspect-ratio: .83; border-radius: 48% 47% 43% 45%; background: linear-gradient(150deg, #c48468, #a76a51); transform: rotate(5deg); }
-.portrait-shadow { left: 35%; top: 12%; width: 31%; height: 19%; border-radius: 50% 55% 30% 20%; background: #303b35; transform: rotate(8deg); }
+.hero-portrait { position: relative; min-height: 430px; display: grid; place-items: center; overflow: hidden; background: radial-gradient(120% 120% at 25% 15%, #dadfcf 0%, #c7cdba 55%, #b7bfa8 100%); box-shadow: 0 40px 70px -35px rgba(31, 36, 33, .55); }
+.portrait-photo { width: 62%; aspect-ratio: 1; border-radius: 50%; object-fit: cover; box-shadow: 0 30px 55px -22px rgba(31, 36, 33, .5), 0 0 0 10px rgba(245, 242, 236, .55); }
 .portrait-caption { position: absolute; left: 20px; bottom: 17px; color: #e8ebdf; font-family: var(--font-sans); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
 .featured-section { padding-top: 92px; padding-bottom: 110px; }
 .section-heading { display: flex; align-items: end; justify-content: space-between; margin-bottom: 35px; }
