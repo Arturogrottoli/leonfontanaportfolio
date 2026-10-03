@@ -1,15 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Article, ArticlesService } from './articles.service';
 import { ArrowIconComponent } from './icons/arrow-icon.component';
 import { DownloadIconComponent } from './icons/download-icon.component';
 import { WhatsappIconComponent } from './icons/whatsapp-icon.component';
-
-interface Article {
-  category: string;
-  date: string;
-  title: string;
-  excerpt: string;
-  readTime: string;
-}
 
 @Component({
   selector: 'app-root',
@@ -17,44 +10,18 @@ interface Article {
   imports: [ArrowIconComponent, DownloadIconComponent, WhatsappIconComponent],
   templateUrl: './app.component.html',
 })
-export class AppComponent {
-  readonly articles: Article[] = [
-    {
-      category: 'Investigación',
-      date: '12 septiembre 2026',
-      title: 'La ciudad que aprendió a escuchar sus ríos',
-      excerpt:
-        'Una crónica sobre los barrios que transformaron la relación con el agua y recuperaron una memoria que parecía perdida.',
-      readTime: '8 min de lectura',
-    },
-    {
-      category: 'Crónica',
-      date: '28 agosto 2026',
-      title: 'El último turno de la noche',
-      excerpt: 'Historias mínimas de quienes mantienen la ciudad despierta cuando todos duermen.',
-      readTime: '6 min de lectura',
-    },
-    {
-      category: 'Opinión',
-      date: '14 agosto 2026',
-      title: 'Contra la velocidad de las noticias',
-      excerpt: 'Por qué contar mejor también significa aprender a esperar.',
-      readTime: '4 min de lectura',
-    },
-    {
-      category: 'Entrevista',
-      date: '03 julio 2026',
-      title: '"La memoria no es un archivo, es una conversación"',
-      excerpt: 'Una charla con la historiadora Clara Bianchi sobre el presente y sus preguntas.',
-      readTime: '10 min de lectura',
-    },
-  ];
+export class AppComponent implements OnInit {
+  private readonly articlesService = inject(ArticlesService);
 
-  get featuredArticle(): Article {
-    return this.articles[0];
+  readonly articles = signal<Article[]>([]);
+  readonly featuredArticle = computed(() => this.articles()[0]);
+  readonly restArticles = computed(() => this.articles().slice(1));
+
+  async ngOnInit(): Promise<void> {
+    this.articles.set(await this.articlesService.load());
   }
 
-  get restArticles(): Article[] {
-    return this.articles.slice(1);
+  readLabel(article: Article): string {
+    return article.outlet ? `Leer en ${article.outlet}` : 'Leer nota';
   }
 }
